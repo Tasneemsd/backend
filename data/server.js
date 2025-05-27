@@ -7,13 +7,18 @@ const port = 3300;
 // Enable JSON body parsing middleware
 
 app.use(express.json());
+const logger = (req,res, next)=>{
+    console.log(`${req.method} ${req.url}`);
+    next();
+}
+app.use(logger);
 
 // This is the array consisting of objects
 
 let students = [
     { id: 1, name: "Banu", course: "CSE" },
     { id: 2, name: "Hassu", course: "TET" }
-];
+];7
 
 //This is the default page which consists of  a heading tag
 
@@ -79,6 +84,11 @@ app.delete("/students/:id", (req, res) => {
     } else {
         res.status(404).send("deleted succesfully");
     }
+})
+app.get('/search',(req,res)=>{
+    const {course} = req.query;
+    const result = students.filter(s => s.course === course)
+    res.json(result);
 })
 
 
