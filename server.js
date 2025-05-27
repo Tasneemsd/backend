@@ -1,24 +1,28 @@
-/* whatever we place here works perfectly  It is same as app.jsx in frontend */
-/* node server.js to run */
+const express = require('express');
+const app = express();
+const port = 3300;
 
-const http = require('http');
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Hello from NODE.js server !!');
-});
-server.listen(3000, () => {
-    console.log('server running');
-});
+//enable json body parser
+//middleware can be used through use keyword
 
+app.use(express.json());
 
-const os = require('os');
-console.log('Os platform:', os.platform());
+let students = [
+    { id: 1, name: "Banu", course: "Cse"},
+    { id: 2, name: "hassu", course: "TET"}
+]
+app.get("/", (req,res) =>{
+    res.send(`<h1> Welcome to student management </h1>`);
+})
+app.get("/students",(req,res)=>{
+    res.json(students);
 
-const add = require('./math');
-console.log(add(24, 6));
-
-const moment = require('moment');
-console.log(moment("22-05-2025", "DD MM YYYY").format('MMM Do'));
-
-
-console.log(moment().subtract(8, 'months').format('DD MM YYYY'));
+})
+app.get("/students/:id",(req,res)=>{
+    const id = parseInt(req.params.id);
+    const student = students.find(s => s.id === id);
+    student ? res.json(student): res.status(404).send("student not found in records");
+})
+app.listen(port, ()=>{
+    console.log("running")
+})
