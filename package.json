@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "main as server.js as we are working with backend",
+  "main": "server.js",
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon Express.js",
+    "dev": "nodemon Express.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "moment": "^2.30.1",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^7.0.3",
+    "nodemon": "^3.1.10"
+  }
+}
